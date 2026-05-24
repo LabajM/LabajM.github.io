@@ -26,10 +26,7 @@
       --border: rgba(226,75,74,0.15);
     }
 
-    html {
-      scroll-behavior: smooth;
-      background: var(--bg);
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
@@ -38,32 +35,20 @@
       font-size: 16px;
       line-height: 1.6;
       min-height: 100vh;
-      width: 100%;
-    }
-
-    .page-wrapper {
-      background: var(--bg);
-      min-height: 100vh;
-      width: 100%;
     }
 
     /* ── NAV ── */
-    .nav-outer {
-      background: rgba(10,10,10,0.97);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(8px);
-      width: 100%;
-    }
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1.25rem 2rem;
-      max-width: 900px;
-      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.97);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
     }
     .logo { font-size: 15px; font-weight: 500; color: var(--red-400); letter-spacing: 0.04em; }
     .nav-links { display: flex; gap: 2rem; }
@@ -149,7 +134,7 @@
     .btn-ghost:hover { border-color: var(--red-400); color: var(--red-400); }
 
     /* ── LAYOUT ── */
-    .divider { height: 1px; background: var(--border); width: 100%; }
+    .divider { height: 1px; background: var(--border); max-width: 900px; margin: 0 auto; }
     section { padding: 4rem 2rem; max-width: 900px; margin: 0 auto; }
 
     .section-label {
@@ -317,7 +302,6 @@
 </head>
 <body>
 
-  <div class="nav-outer">
   <nav>
     <div class="logo">ML</div>
     <div class="nav-links">
@@ -327,7 +311,6 @@
       <a href="#contact">Contact</a>
     </div>
   </nav>
-  </div>
 
   <!-- HERO -->
   <div class="hero">
