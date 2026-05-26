@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Michal Labaj — Site Reliability Engineer</title>
   <meta name="description" content="Site Reliability Engineer specialising in observability, infrastructure, and automation." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -26,17 +23,14 @@
       --sidebar-w: 260px;
     }
 
+    html { scroll-behavior: smooth; }
     html, body {
-      height: 100%;
+      min-height: 100%;
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', system-ui, sans-serif;
-    }
-
-    /* ── LAYOUT ── */
-    .layout {
-      display: block;   /* ← change from grid */
-      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
     }
 
     /* ── SIDEBAR ── */
@@ -57,13 +51,13 @@
       position: absolute;
       top: 0; left: 0;
       width: 2px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--r6), transparent 80%);
+      height: 60%;
+      background: linear-gradient(to bottom, var(--r6), transparent);
     }
 
     .name {
       font-size: 30px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text);
       letter-spacing: -0.025em;
       line-height: 1.05;
@@ -132,21 +126,20 @@
       color: var(--text3);
       text-decoration: none;
       transition: color 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .ss-link i { font-size: 15px; color: var(--r4); }
+    .ss-link i { font-size: 15px; color: var(--r4); flex-shrink: 0; }
     .ss-link:hover { color: var(--r4); }
 
     /* ── MAIN ── */
-    .main {
-      margin-left: var(--sidebar-w);
-      min-height: 100vh;
-    }
+    .main { margin-left: var(--sidebar-w); min-height: 100vh; }
 
     section {
       padding: 4rem 3.5rem;
       border-bottom: 1px solid var(--border);
       max-width: 860px;
-      margin: 0 auto;
     }
     section:last-of-type { border-bottom: none; }
 
@@ -159,12 +152,12 @@
     }
     .sec-title {
       font-size: 26px;
-      font-weight: 500;
+      font-weight: 600;
       margin-bottom: 2rem;
       letter-spacing: -0.02em;
     }
 
-    /* ── HERO ── */
+    /* ── ABOUT ── */
     #about .hero-text {
       font-size: 15px;
       color: var(--text2);
@@ -186,37 +179,52 @@
       border-radius: 10px;
       padding: 1.1rem;
     }
-    .stat-n { font-size: 26px; font-weight: 500; color: var(--r4); line-height: 1; margin-bottom: 4px; }
+    .stat-n { font-size: 26px; font-weight: 600; color: var(--r4); line-height: 1; margin-bottom: 4px; }
     .stat-l { font-size: 11px; color: var(--text3); }
 
     /* ── SKILLS ── */
-    .skill-group { margin-bottom: 1.75rem; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 3rem;
+    }
+    .skill-group { }
     .sg-label {
       font-size: 10px;
       color: var(--r4);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.6rem;
       border-bottom: 1px solid var(--border);
     }
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chip {
-      background: var(--bg3);
-      border: 1px solid rgba(226,75,74,0.12);
-      border-radius: 8px;
-      padding: 8px 13px;
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .skill-list li {
       font-size: 13px;
       color: var(--text2);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: border-color 0.2s, background 0.2s;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
     }
-    .chip:hover { border-color: var(--r4); background: rgba(226,75,74,0.05); }
-    .chip.f { border-color: rgba(226,75,74,0.3); background: rgba(226,75,74,0.07); }
-    .chip.f .dot { background: var(--r4); }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+    .skill-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text3);
+      font-size: 11px;
+      top: 1px;
+    }
+    .skill-list li.featured {
+      color: var(--text);
+    }
+    .skill-list li.featured::before {
+      color: var(--r4);
+    }
 
     /* ── PROJECTS ── */
     .projects {
@@ -252,6 +260,7 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 17px;
       color: var(--r4);
+      flex-shrink: 0;
     }
     .ptag {
       font-size: 10px;
@@ -263,7 +272,7 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
-    .ptitle { font-size: 14px; font-weight: 500; margin-bottom: 5px; color: var(--text); }
+    .ptitle { font-size: 14px; font-weight: 600; margin-bottom: 5px; color: var(--text); }
     .pdesc { font-size: 12px; color: var(--text3); line-height: 1.7; }
     .ptechs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
     .ptech { font-size: 11px; color: var(--text3); background: var(--bg4); border-radius: 4px; padding: 2px 8px; }
@@ -296,13 +305,12 @@
 
     /* ── FOOTER ── */
     footer {
+      margin-left: var(--sidebar-w);
       padding: 1.5rem 3.5rem;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-left: var(--sidebar-w);
-      max-width: calc(860px + var(--sidebar-w));   /* ← matches content width */
     }
     .ft { font-size: 12px; color: var(--text3); }
     .fdot { width: 5px; height: 5px; border-radius: 50%; background: var(--r6); display: inline-block; margin-right: 6px; }
@@ -313,6 +321,7 @@
       .sidebar { display: none; }
       .main, footer { margin-left: 0; }
       .stats { grid-template-columns: 1fr 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
       .projects { grid-template-columns: 1fr; }
       .contact-wrap { grid-template-columns: 1fr; }
       section { padding: 2.5rem 1.5rem; }
@@ -322,187 +331,175 @@
 </head>
 <body>
 
-  <div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-accent"></div>
+    <div class="name">Michal<br><em>Labaj</em></div>
+    <div class="role">Site Reliability Engineer</div>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-accent"></div>
-      <div class="name">Michal<br><em>Labaj</em></div>
-      <div class="role">Site Reliability Engineer</div>
+    <nav class="sidenav">
+      <a href="#about" class="active">
+        <i class="ti ti-user" aria-hidden="true"></i>About
+      </a>
+      <a href="#skills">
+        <i class="ti ti-tool" aria-hidden="true"></i>Skills
+      </a>
+      <a href="#projects">
+        <i class="ti ti-briefcase" aria-hidden="true"></i>Projects
+      </a>
+      <a href="#contact">
+        <i class="ti ti-mail" aria-hidden="true"></i>Contact
+      </a>
+    </nav>
 
-      <nav class="sidenav">
-        <a href="#about" class="active">
-          <i class="ti ti-user" aria-hidden="true"></i>About
-        </a>
-        <a href="#skills">
-          <i class="ti ti-tool" aria-hidden="true"></i>Skills
-        </a>
-        <a href="#projects">
-          <i class="ti ti-briefcase" aria-hidden="true"></i>Projects
-        </a>
-        <a href="#contact">
-          <i class="ti ti-mail" aria-hidden="true"></i>Contact
-        </a>
-      </nav>
+    <div class="sidebar-footer">
+      <a class="ss-link" href="https://github.com/LabajM" target="_blank" rel="noopener noreferrer">
+        <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub
+      </a>
+      <a class="ss-link" href="https://www.linkedin.com/in/michal-labaj-a85181129/" target="_blank" rel="noopener noreferrer">
+        <i class="ti ti-brand-linkedin" aria-hidden="true"></i>LinkedIn
+      </a>
+      <a class="ss-link" href="mailto:michal@labaj.ca">
+        <i class="ti ti-mail" aria-hidden="true"></i>michal@labaj.ca
+      </a>
+    </div>
+  </aside>
 
-      <div class="sidebar-footer">
-        <a class="ss-link" href="https://github.com/LabajM" target="_blank" rel="noopener noreferrer">
-          <i class="ti ti-brand-github" aria-hidden="true"></i>GitHub
-        </a>
-        <a class="ss-link" href="https://www.linkedin.com/in/michal-labaj-a85181129/" target="_blank" rel="noopener noreferrer">
-          <i class="ti ti-brand-linkedin" aria-hidden="true"></i>LinkedIn
-        </a>
-        <a class="ss-link" href="mailto:michal@labaj.ca">
-          <i class="ti ti-mail" aria-hidden="true"></i>michal@labaj.ca
-        </a>
+  <!-- MAIN -->
+  <main class="main">
+
+    <section id="about">
+      <p class="sec-label">About me</p>
+      <h1 class="sec-title">Who I am</h1>
+      <div class="hero-text">
+        <p>I'm a Site Reliability Engineer with a deep focus on observability. I've built and owned the full observability stack at my company — from metrics pipelines to dashboards that engineers actually use.</p>
+        <p>When I'm not tuning Grafana dashboards or wrangling log pipelines, I'm automating everything I can get my hands on and obsessing over making complex systems legible.</p>
       </div>
-    </aside>
+      <div class="stats">
+        <div class="stat"><div class="stat-n">99.9%</div><div class="stat-l">Uptime target</div></div>
+        <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Years experience</div></div>
+        <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Incidents resolved</div></div>
+        <div class="stat"><div class="stat-n">0</div><div class="stat-l">Unsolved problems</div></div>
+      </div>
+    </section>
 
-    <!-- MAIN CONTENT -->
-    <main class="main">
-
-      <!-- ABOUT -->
-      <section id="about">
-        <p class="sec-label">About me</p>
-        <h1 class="sec-title">Who I am</h1>
-        <div class="hero-text">
-          <p>I'm a Site Reliability Engineer with a deep focus on observability. I've built and owned the full observability stack at my company — from metrics pipelines to dashboards that engineers actually use.</p>
-          <p>When I'm not tuning Grafana dashboards or wrangling log pipelines, I'm automating everything I can get my hands on and obsessing over making complex systems legible.</p>
-        </div>
-        <div class="stats">
-          <div class="stat"><div class="stat-n">99.9%</div><div class="stat-l">Uptime target</div></div>
-          <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Years experience</div></div>
-          <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Incidents resolved</div></div>
-          <div class="stat"><div class="stat-n">0</div><div class="stat-l">Unsolved problems</div></div>
-        </div>
-      </section>
-
-      <!-- SKILLS -->
-      <section id="skills">
-        <p class="sec-label">Expertise</p>
-        <h2 class="sec-title">Skills & tools</h2>
+    <section id="skills">
+      <p class="sec-label">Expertise</p>
+      <h2 class="sec-title">Skills & tools</h2>
+      <div class="skills-grid">
 
         <div class="skill-group">
-          <div class="sg-label">Observability — core focus</div>
-          <div class="chips">
-            <div class="chip f"><div class="dot"></div>Grafana</div>
-            <div class="chip f"><div class="dot"></div>Grafana Alloy</div>
-            <div class="chip f"><div class="dot"></div>Loki</div>
-            <div class="chip f"><div class="dot"></div>Prometheus</div>
-            <div class="chip f"><div class="dot"></div>Zabbix</div>
-            <div class="chip f"><div class="dot"></div>ELK Stack</div>
-            <div class="chip f"><div class="dot"></div>AppDynamics</div>
-          </div>
+          <div class="sg-label">Observability</div>
+          <ul class="skill-list">
+            <li class="featured">Grafana</li>
+            <li class="featured">Grafana Alloy</li>
+            <li class="featured">Loki</li>
+            <li class="featured">Prometheus</li>
+            <li class="featured">Zabbix</li>
+            <li class="featured">ELK Stack</li>
+            <li class="featured">AppDynamics</li>
+          </ul>
         </div>
 
         <div class="skill-group">
-          <div class="sg-label">Infrastructure & platforms</div>
-          <div class="chips">
-            <div class="chip"><div class="dot"></div>Kubernetes</div>
-            <div class="chip"><div class="dot"></div>Terraform</div>
-            <div class="chip"><div class="dot"></div>AWS / GCP</div>
-            <div class="chip"><div class="dot"></div>Docker</div>
-            <div class="chip"><div class="dot"></div>Linux</div>
-          </div>
+          <div class="sg-label">Infrastructure</div>
+          <ul class="skill-list">
+            <li>Kubernetes</li>
+            <li>Terraform</li>
+            <li>AWS / GCP</li>
+            <li>Docker</li>
+            <li>Linux</li>
+          </ul>
         </div>
 
         <div class="skill-group">
           <div class="sg-label">Automation & practices</div>
-          <div class="chips">
-            <div class="chip"><div class="dot"></div>Python</div>
-            <div class="chip"><div class="dot"></div>CI/CD</div>
-            <div class="chip"><div class="dot"></div>Incident management</div>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>CI/CD</li>
+            <li>Incident management</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="projects">
+      <p class="sec-label">Work</p>
+      <h2 class="sec-title">Projects</h2>
+      <div class="projects">
+
+        <div class="pcard">
+          <div class="ptop">
+            <div class="picon"><i class="ti ti-chart-bar" aria-hidden="true"></i></div>
+            <span class="ptag">Observability</span>
+          </div>
+          <div class="ptitle">Company Observability Stack</div>
+          <div class="pdesc">Designed and built the full observability platform from the ground up — metrics, logs, and traces — giving engineering teams real-time visibility into their systems.</div>
+          <div class="ptechs">
+            <span class="ptech">Grafana</span><span class="ptech">Alloy</span><span class="ptech">Loki</span><span class="ptech">Prometheus</span>
           </div>
         </div>
-      </section>
 
-      <!-- PROJECTS -->
-      <section id="projects">
-        <p class="sec-label">Work</p>
-        <h2 class="sec-title">Projects</h2>
-        <div class="projects">
-
-          <div class="pcard">
-            <div class="ptop">
-              <div class="picon"><i class="ti ti-chart-bar" aria-hidden="true"></i></div>
-              <span class="ptag">Observability</span>
-            </div>
-            <div class="ptitle">Company Observability Stack</div>
-            <div class="pdesc">Designed and built the full observability platform from the ground up — metrics, logs, and traces — giving engineering teams real-time visibility into their systems.</div>
-            <div class="ptechs">
-              <span class="ptech">Grafana</span>
-              <span class="ptech">Alloy</span>
-              <span class="ptech">Loki</span>
-              <span class="ptech">Prometheus</span>
-            </div>
+        <div class="pcard">
+          <div class="ptop">
+            <div class="picon"><i class="ti ti-eye" aria-hidden="true"></i></div>
+            <span class="ptag">Monitoring</span>
           </div>
-
-          <div class="pcard">
-            <div class="ptop">
-              <div class="picon"><i class="ti ti-eye" aria-hidden="true"></i></div>
-              <span class="ptag">Monitoring</span>
-            </div>
-            <div class="ptitle">Zabbix Data Collection Platform</div>
-            <div class="pdesc">Built a comprehensive data collection layer in Zabbix covering infrastructure, network devices, and application health across the entire environment.</div>
-            <div class="ptechs">
-              <span class="ptech">Zabbix</span>
-              <span class="ptech">Python</span>
-              <span class="ptech">Grafana</span>
-            </div>
-          </div>
-
-          <div class="pcard">
-            <div class="ptop">
-              <div class="picon"><i class="ti ti-server" aria-hidden="true"></i></div>
-              <span class="ptag">Log management</span>
-            </div>
-            <div class="ptitle">Centralised Log Pipeline</div>
-            <div class="pdesc">Unified log ingestion across services using the ELK Stack, enabling fast full-text search, alerting, and long-term retention at scale.</div>
-            <div class="ptechs">
-              <span class="ptech">Elasticsearch</span>
-              <span class="ptech">Logstash</span>
-              <span class="ptech">Kibana</span>
-            </div>
-          </div>
-
-          <div class="pcard">
-            <div class="ptop">
-              <div class="picon"><i class="ti ti-activity" aria-hidden="true"></i></div>
-              <span class="ptag">APM</span>
-            </div>
-            <div class="ptitle">Application Performance Monitoring</div>
-            <div class="pdesc">Implemented AppDynamics across critical application tiers, providing deep transaction tracing and business impact analysis for SLA reporting.</div>
-            <div class="ptechs">
-              <span class="ptech">AppDynamics</span>
-              <span class="ptech">SLA tracking</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contact">
-        <p class="sec-label">Contact</p>
-        <h2 class="sec-title">Let's connect</h2>
-        <div class="contact-wrap">
-          <p class="contact-text">Whether you're looking to collaborate, have a question about observability, or just want to talk infrastructure — my inbox is open.</p>
-          <div class="social-links">
-            <a class="slink" href="https://github.com/LabajM" target="_blank" rel="noopener noreferrer">
-              <i class="ti ti-brand-github" aria-hidden="true"></i>github.com/LabajM
-            </a>
-            <a class="slink" href="https://www.linkedin.com/in/michal-labaj-a85181129/" target="_blank" rel="noopener noreferrer">
-              <i class="ti ti-brand-linkedin" aria-hidden="true"></i>linkedin.com/in/michal-labaj
-            </a>
-            <a class="slink" href="mailto:michal@labaj.ca">
-              <i class="ti ti-mail" aria-hidden="true"></i>michal@labaj.ca
-            </a>
+          <div class="ptitle">Zabbix Data Collection Platform</div>
+          <div class="pdesc">Built a comprehensive data collection layer in Zabbix covering infrastructure, network devices, and application health across the entire environment.</div>
+          <div class="ptechs">
+            <span class="ptech">Zabbix</span><span class="ptech">Python</span><span class="ptech">Grafana</span>
           </div>
         </div>
-      </section>
 
-    </main>
-  </div>
+        <div class="pcard">
+          <div class="ptop">
+            <div class="picon"><i class="ti ti-server" aria-hidden="true"></i></div>
+            <span class="ptag">Log management</span>
+          </div>
+          <div class="ptitle">Centralised Log Pipeline</div>
+          <div class="pdesc">Unified log ingestion across services using the ELK Stack, enabling fast full-text search, alerting, and long-term retention at scale.</div>
+          <div class="ptechs">
+            <span class="ptech">Elasticsearch</span><span class="ptech">Logstash</span><span class="ptech">Kibana</span>
+          </div>
+        </div>
+
+        <div class="pcard">
+          <div class="ptop">
+            <div class="picon"><i class="ti ti-activity" aria-hidden="true"></i></div>
+            <span class="ptag">APM</span>
+          </div>
+          <div class="ptitle">Application Performance Monitoring</div>
+          <div class="pdesc">Implemented AppDynamics across critical application tiers, providing deep transaction tracing and business impact analysis for SLA reporting.</div>
+          <div class="ptechs">
+            <span class="ptech">AppDynamics</span><span class="ptech">SLA tracking</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact">
+      <p class="sec-label">Contact</p>
+      <h2 class="sec-title">Let's connect</h2>
+      <div class="contact-wrap">
+        <p class="contact-text">Whether you're looking to collaborate, have a question about observability, or just want to talk infrastructure — my inbox is open.</p>
+        <div class="social-links">
+          <a class="slink" href="https://github.com/LabajM" target="_blank" rel="noopener noreferrer">
+            <i class="ti ti-brand-github" aria-hidden="true"></i>github.com/LabajM
+          </a>
+          <a class="slink" href="https://www.linkedin.com/in/michal-labaj-a85181129/" target="_blank" rel="noopener noreferrer">
+            <i class="ti ti-brand-linkedin" aria-hidden="true"></i>linkedin.com/in/michal-labaj
+          </a>
+          <a class="slink" href="mailto:michal@labaj.ca">
+            <i class="ti ti-mail" aria-hidden="true"></i>michal@labaj.ca
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <footer>
     <span class="ft"><span class="fdot"></span>Michal Labaj — Site Reliability Engineer</span>
@@ -512,7 +509,6 @@
   <script>
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.sidenav a');
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -521,8 +517,7 @@
           if (active) active.classList.add('active');
         }
       });
-    }, { threshold: 0.4 });
-
+    }, { threshold: 0.3 });
     sections.forEach(s => observer.observe(s));
   </script>
 
